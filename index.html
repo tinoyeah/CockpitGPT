@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f6b5c">
+  <meta name="description" content="Briefing CFO personale e cockpit per le filiali">
+  <title>Cockpit CFO</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <h1 id="day"></h1>
+      <div class="sub"><span id="stamp">Carico i dati…</span><button id="refresh" type="button">Aggiorna</button></div>
+    </header>
+
+    <div id="tab-sintesi" class="tabpanel">
+      <section id="coach">
+        <h2>Il punto del giorno</h2>
+        <p class="stale" id="stale" hidden></p>
+        <p class="sum" id="sumtext">La sintesi manageriale verrà caricata da <code>summary.json</code>.</p>
+      </section>
+    </div>
+
+    <div id="tab-prezzi" class="tabpanel" hidden>
+      <section>
+        <h2>Esposizione cambi</h2>
+        <p class="mu">Inserisci il cambio di budget e l’EBITDA YTD. Il cockpit mostra l’effetto della conversione rispetto alla media BCE da inizio anno. I dati restano su questo dispositivo.</p>
+        <div id="fxcards"><p class="mu">Carico…</p></div>
+      </section>
+    </div>
+
+    <div id="tab-news" class="tabpanel" hidden>
+      <div class="row section-head"><h2>Novità</h2><button id="readall" type="button">Segna tutto letto</button></div>
+      <div class="chips" id="chips"></div>
+      <div id="themes"></div>
+    </div>
+
+    <div id="tab-filiali" class="tabpanel" hidden>
+      <section class="section-tight"><h2>Prepara la call</h2><div class="chips" id="fchips"></div></section>
+      <div id="fbody"></div>
+    </div>
+
+    <div id="tab-sport" class="tabpanel" hidden>
+      <section><h2>Sport</h2><p class="mu">Gli aggiornamenti sportivi selezionati per il briefing.</p><div id="sports"></div></section>
+    </div>
+
+    <div id="tab-radar" class="tabpanel" hidden>
+      <section><h2>Da discutere</h2><ul id="saved"></ul></section>
+    </div>
+  </main>
+
+  <nav class="tabs" role="tablist" aria-label="Sezioni">
+    <button id="b-sintesi" type="button" role="tab" aria-selected="true" aria-controls="tab-sintesi">Sintesi</button>
+    <button id="b-prezzi" type="button" role="tab" aria-selected="false" aria-controls="tab-prezzi">Prezzi</button>
+    <button id="b-news" type="button" role="tab" aria-selected="false" aria-controls="tab-news">News</button>
+    <button id="b-filiali" type="button" role="tab" aria-selected="false" aria-controls="tab-filiali">Filiali</button>
+    <button id="b-sport" type="button" role="tab" aria-selected="false" aria-controls="tab-sport">Sport</button>
+    <button id="b-radar" type="button" role="tab" aria-selected="false" aria-controls="tab-radar">Radar</button>
+  </nav>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
