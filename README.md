@@ -36,6 +36,23 @@ I cambi vengono recuperati da Frankfurter, che utilizza i tassi BCE. Budget, EBI
 }
 ```
 
+## Frase del giorno
+
+La tab Sintesi legge `quotes.json` e seleziona una sola frase al giorno usando la data del dispositivo. Il database contiene 500 schede con autore, libro, tema e tipo della frase. Le schede attuali sono esplicitamente marcate come frasi originali ispirate; non vengono presentate come citazioni testuali verificate.
+
+`summary.json` resta disponibile come fallback, ma non è più necessario per mostrare la frase del giorno.
+
+## Aggiornamento automatico con Gemini
+
+Il file `.github/workflows/update-summary.yml` aggiorna automaticamente `summary.json` ogni giorno. Per attivarlo:
+
+1. Crea una chiave in Google AI Studio.
+2. In GitHub vai su **Settings → Secrets and variables → Actions**.
+3. Crea un nuovo repository secret chiamato `GEMINI_API_KEY` e incolla la chiave.
+4. Vai nella tab **Actions**, seleziona **Aggiorna sintesi manageriale** e premi **Run workflow**.
+
+Dopo l’esecuzione, GitHub farà un commit automatico di `summary.json`; GitHub Pages mostrerà la nuova sintesi al successivo aggiornamento della pagina.
+
 ## Nota tecnica
 
 Per il funzionamento completo, usare GitHub Pages o un altro server HTTPS. Il service worker non viene registrato correttamente aprendo il file direttamente dal computer con `file://`.
