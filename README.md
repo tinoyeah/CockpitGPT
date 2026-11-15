@@ -26,7 +26,7 @@ Le notizie vengono recuperate tramite Google News RSS e il proxy rss2json. Le fo
 
 I cambi vengono recuperati da Frankfurter, che utilizza i tassi BCE. Budget, EBITDA, note, letture e articoli salvati restano nel local storage del dispositivo.
 
-`summary.json` è opzionale. Se presente nella stessa cartella, deve contenere la sintesi manageriale complessiva di prezzi, news, filiali e sport:
+`summary.json` deve trovarsi nella stessa cartella di `v4.html` e `index.html`. È il file che alimenta la sintesi manageriale complessiva di prezzi, news, filiali e sport:
 
 ```json
 {
