@@ -1,4 +1,4 @@
-const CACHE = "cfo-cockpit-shell-v3";
+const CACHE = "cfo-cockpit-shell-v4";
 const ASSETS = ["./", "./index.html", "./styles.css", "./config.js", "./app.js", "./manifest.webmanifest", "./icon.svg"];
 
 self.addEventListener("install", e => e.waitUntil(
