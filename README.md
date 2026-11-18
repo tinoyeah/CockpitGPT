@@ -22,7 +22,7 @@ Mini-app statica per briefing quotidiano, esposizione cambi, notizie per tema e 
 
 Modificare `config.js` per cambiare temi, query, fonti, filiali e domande per le call.
 
-Le notizie vengono recuperate tramite Google News RSS e il proxy rss2json. Le fonti sono curate nella configurazione tramite query con priorità editoriale; Google News resta un fallback e un aggregatore.
+Le notizie vengono raccolte da GitHub Actions e salvate in `news.json`. L’app legge il file locale, evitando dipendenze dal browser, CORS e dal proxy `rss2json`. Le query sono definite in `scripts/collect_news.py`.
 
 I cambi vengono recuperati da Frankfurter, che utilizza i tassi BCE. Budget, EBITDA, note, letture e articoli salvati restano nel local storage del dispositivo.
 
@@ -42,16 +42,16 @@ La tab Sintesi legge `quotes.json` e seleziona una sola frase al giorno usando l
 
 `summary.json` resta disponibile come fallback, ma non è più necessario per mostrare la frase del giorno.
 
-## Aggiornamento automatico con Gemini
+## Aggiornamento automatico di news e sintesi
 
-Il file `.github/workflows/update-summary.yml` aggiorna automaticamente `summary.json` ogni giorno. Per attivarlo:
+Il file `.github/workflows/update-summary.yml` aggiorna automaticamente `news.json` e `summary.json` ogni giorno. Per attivarlo:
 
 1. Crea una chiave in Google AI Studio.
 2. In GitHub vai su **Settings → Secrets and variables → Actions**.
 3. Crea un nuovo repository secret chiamato `GEMINI_API_KEY` e incolla la chiave.
 4. Vai nella tab **Actions**, seleziona **Aggiorna sintesi manageriale** e premi **Run workflow**.
 
-Dopo l’esecuzione, GitHub farà un commit automatico di `summary.json`; GitHub Pages mostrerà la nuova sintesi al successivo aggiornamento della pagina.
+Dopo l’esecuzione, GitHub farà un commit automatico dei file aggiornati; GitHub Pages mostrerà le nuove news al successivo aggiornamento della pagina.
 
 ## Nota tecnica
 

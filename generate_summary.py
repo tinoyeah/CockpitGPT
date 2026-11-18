@@ -4,7 +4,6 @@ import os
 import re
 import urllib.parse
 import urllib.request
-import xml.etree.ElementTree as ET
 
 GEMINI_KEY = os.environ.get("GEMINI_API_KEY")
 MODEL = "gemini-2.5-flash"
@@ -25,20 +24,6 @@ def get_json(url):
         return json.loads(response.read().decode("utf-8"))
 
 
-def get_news(query):
-    rss = "https://news.google.com/rss/search?q=" + urllib.parse.quote(query + " when:3d") + "&hl=it&gl=IT&ceid=IT:it"
-    request = urllib.request.Request(rss, headers={"User-Agent": "CFO-Cockpit/1.0"})
-    with urllib.request.urlopen(request, timeout=30) as response:
-        root = ET.fromstring(response.read())
-    items = []
-    for item in root.findall("./channel/item")[:6]:
-        title = item.findtext("title", "")
-        link = item.findtext("link", "")
-        pub_date = item.findtext("pubDate", "")
-        items.append({"title": title, "link": link, "date": pub_date})
-    return items
-
-
 def get_market_snapshot():
     try:
         return get_json("https://energyindex.it/api/v1/today")
@@ -57,12 +42,11 @@ def generate():
     if not GEMINI_KEY:
         raise RuntimeError("GEMINI_API_KEY non configurata nei GitHub Secrets")
 
-    news = []
-    for query in QUERIES:
-        try:
-            news.extend(get_news(query))
-        except Exception:
-            continue
+    try:
+        with open("news.json", encoding="utf-8") as file:
+            news = json.load(file).get("items", [])
+    except Exception as exc:
+        raise RuntimeError(f"news.json non disponibile: {exc}") from exc
 
     # Riduce duplicati mantenendo il primo titolo incontrato.
     unique = {}
